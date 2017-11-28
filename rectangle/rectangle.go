@@ -1,13 +1,13 @@
 package rectangle
 
 type Point struct {
-	x int
-	y int
+	X int
+	Y int
 }
 
 type Rectangle struct {
-	botLeftVtx Point
-	topRightVtx Point
+	BotLeftVtx Point
+	TopRightVtx Point
 }
 
 func getTheVertexPosition(v Point, r Rectangle) int {
@@ -16,11 +16,11 @@ func getTheVertexPosition(v Point, r Rectangle) int {
 	--> 0 to indicate that the given vertex, 'v' lies on one of the edges of the rectangle, 'r'
 	--> -1 to indicate that the given vertex, 'v' lies completely outside the edges of the rectangle, 'r'
 	*/
-	if( v.x > r.botLeftVtx.x && v.x < r.topRightVtx.x && v.y > r.botLeftVtx.y && v.y < r.topRightVtx.y ) {
+	if( v.X > r.BotLeftVtx.X && v.X < r.TopRightVtx.X && v.Y > r.BotLeftVtx.Y && v.Y < r.TopRightVtx.Y ) {
 		return 1
 	}
-	if(((v.x==r.botLeftVtx.x || v.x == r.topRightVtx.x) && v.y >= r.botLeftVtx.y && v.y <= r.topRightVtx.y)) ||
-		((v.y==r.botLeftVtx.y || v.y==r.topRightVtx.y) && v.x>=r.botLeftVtx.x && v.x<=r.topRightVtx.x) {
+	if(((v.X==r.BotLeftVtx.X || v.X == r.TopRightVtx.X) && v.Y >= r.BotLeftVtx.Y && v.Y <= r.TopRightVtx.Y)) ||
+		((v.Y==r.BotLeftVtx.Y || v.Y==r.TopRightVtx.Y) && v.X>=r.BotLeftVtx.X && v.X<=r.TopRightVtx.X) {
 		return 0
 	}
 	return -1
@@ -31,7 +31,7 @@ func isTheRectangleValid(r Rectangle) bool {
 	bottom left vertex. Providing other vertices, such as  top left vertex and bottom right vertex for
 	the rectangle definition are not accepted.
 	*/
-	if(r.topRightVtx.x > r.botLeftVtx.x && r.topRightVtx.y > r.botLeftVtx.y) {
+	if(r.TopRightVtx.X > r.BotLeftVtx.X && r.TopRightVtx.Y > r.BotLeftVtx.Y) {
 		return true
 	}
 	return false
@@ -57,10 +57,10 @@ func calcIntersectingRectangle(r1, r2 Rectangle) (Rectangle) {
 
 	//figure out how many vertices of second rectangle lie inside, on the edge or outside the first rectangle.
 	var r2VtxPosition  = [4]int{-1,-1,-1,-1}
-	r2VtxPosition[0] = getTheVertexPosition(r2.botLeftVtx, r1)
-	r2VtxPosition[1] = getTheVertexPosition(Point{r2.botLeftVtx.x, r2.topRightVtx.y}, r1)
-	r2VtxPosition[2] = getTheVertexPosition(r2.topRightVtx, r1)
-	r2VtxPosition[3] = getTheVertexPosition(Point{r2.topRightVtx.x, r2.botLeftVtx.y}, r1)
+	r2VtxPosition[0] = getTheVertexPosition(r2.BotLeftVtx, r1)
+	r2VtxPosition[1] = getTheVertexPosition(Point{r2.BotLeftVtx.X, r2.TopRightVtx.Y}, r1)
+	r2VtxPosition[2] = getTheVertexPosition(r2.TopRightVtx, r1)
+	r2VtxPosition[3] = getTheVertexPosition(Point{r2.TopRightVtx.X, r2.BotLeftVtx.Y}, r1)
 
 	var verticesOnEdge = 0
 	var verticesInsideRect = 0
@@ -94,17 +94,17 @@ func calcIntersectingRectangle(r1, r2 Rectangle) (Rectangle) {
 	if (verticesInsideRect == 1) {
 		var botLeftVtxIntersect, topRightVtxIntersect Point
 		if(r2VtxPosition[0] == 1) {
-			botLeftVtxIntersect =r2.botLeftVtx
-			topRightVtxIntersect =r1.topRightVtx
+			botLeftVtxIntersect =r2.BotLeftVtx
+			topRightVtxIntersect =r1.TopRightVtx
 		} else if(r2VtxPosition[1] == 1) {
-			botLeftVtxIntersect=Point{r2.botLeftVtx.x,r1.botLeftVtx.y}
-			topRightVtxIntersect=Point{r1.topRightVtx.x, r2.topRightVtx.y}
+			botLeftVtxIntersect=Point{r2.BotLeftVtx.X,r1.BotLeftVtx.Y}
+			topRightVtxIntersect=Point{r1.TopRightVtx.X, r2.TopRightVtx.Y}
 		} else if(r2VtxPosition[2] == 1) {
-			botLeftVtxIntersect=r1.botLeftVtx
-			topRightVtxIntersect=r2.topRightVtx
+			botLeftVtxIntersect=r1.BotLeftVtx
+			topRightVtxIntersect=r2.TopRightVtx
 		} else if (r2VtxPosition[3] == 1) {
-			botLeftVtxIntersect=Point{r1.botLeftVtx.x, r2.botLeftVtx.y}
-			topRightVtxIntersect=Point{r2.topRightVtx.x, r1.topRightVtx.y}
+			botLeftVtxIntersect=Point{r1.BotLeftVtx.X, r2.BotLeftVtx.Y}
+			topRightVtxIntersect=Point{r2.TopRightVtx.X, r1.TopRightVtx.Y}
 		}
 		return Rectangle{botLeftVtxIntersect, topRightVtxIntersect}
 	}
@@ -113,17 +113,17 @@ func calcIntersectingRectangle(r1, r2 Rectangle) (Rectangle) {
 	if (verticesInsideRect == 2) {
 		var botLeftVtxIntersect, topRightVtxIntersect Point
 		if(r2VtxPosition[0]==1 && r2VtxPosition[1]==1){
-			botLeftVtxIntersect = r2.botLeftVtx
-			topRightVtxIntersect = Point{r1.topRightVtx.x, r2.topRightVtx.y}
+			botLeftVtxIntersect = r2.BotLeftVtx
+			topRightVtxIntersect = Point{r1.TopRightVtx.X, r2.TopRightVtx.Y}
 		} else if (r2VtxPosition[1]==1 && r2VtxPosition[2] == 1) {
-			botLeftVtxIntersect = Point{r2.botLeftVtx.x, r1.botLeftVtx.y}
-			topRightVtxIntersect = r2.topRightVtx
+			botLeftVtxIntersect = Point{r2.BotLeftVtx.X, r1.BotLeftVtx.Y}
+			topRightVtxIntersect = r2.TopRightVtx
 		} else if (r2VtxPosition[2]==1 && r2VtxPosition[3]==1) {
-			botLeftVtxIntersect = Point{r1.botLeftVtx.x, r2.botLeftVtx.y}
-			topRightVtxIntersect = r2.topRightVtx
+			botLeftVtxIntersect = Point{r1.BotLeftVtx.X, r2.BotLeftVtx.Y}
+			topRightVtxIntersect = r2.TopRightVtx
 		} else if (r2VtxPosition[3]==1 && r2VtxPosition[0]==1) {
-			botLeftVtxIntersect = r2.botLeftVtx
-			topRightVtxIntersect =Point{r2.topRightVtx.x, r1.topRightVtx.y}
+			botLeftVtxIntersect = r2.BotLeftVtx
+			topRightVtxIntersect =Point{r2.TopRightVtx.X, r1.TopRightVtx.Y}
 		}
 		return Rectangle{botLeftVtxIntersect, topRightVtxIntersect}
 	}
@@ -133,17 +133,17 @@ func calcIntersectingRectangle(r1, r2 Rectangle) (Rectangle) {
 	if (verticesOnEdge == 2) {
 		var botLeftVtxIntersect, topRightVtxIntersect Point
 		if(r2VtxPosition[0]==0 && r2VtxPosition[1]==0){
-			botLeftVtxIntersect = r2.botLeftVtx
-			topRightVtxIntersect = Point{r1.topRightVtx.x, r2.topRightVtx.y}
+			botLeftVtxIntersect = r2.BotLeftVtx
+			topRightVtxIntersect = Point{r1.TopRightVtx.X, r2.TopRightVtx.Y}
 		} else if (r2VtxPosition[1]==0 && r2VtxPosition[2] == 0) {
-			botLeftVtxIntersect = Point{r2.botLeftVtx.x, r1.botLeftVtx.y}
-			topRightVtxIntersect = r2.topRightVtx
+			botLeftVtxIntersect = Point{r2.BotLeftVtx.X, r1.BotLeftVtx.Y}
+			topRightVtxIntersect = r2.TopRightVtx
 		} else if (r2VtxPosition[2]==0 && r2VtxPosition[3]==0) {
-			botLeftVtxIntersect = Point{r1.botLeftVtx.x, r2.botLeftVtx.y}
-			topRightVtxIntersect = r2.topRightVtx
+			botLeftVtxIntersect = Point{r1.BotLeftVtx.X, r2.BotLeftVtx.Y}
+			topRightVtxIntersect = r2.TopRightVtx
 		} else if (r2VtxPosition[3]==0 && r2VtxPosition[0]==0) {
-			botLeftVtxIntersect = r2.botLeftVtx
-			topRightVtxIntersect =Point{r2.topRightVtx.x, r1.topRightVtx.y}
+			botLeftVtxIntersect = r2.BotLeftVtx
+			topRightVtxIntersect =Point{r2.TopRightVtx.X, r1.TopRightVtx.Y}
 		}
 
 		calculatedRectangle:=Rectangle{botLeftVtxIntersect, topRightVtxIntersect}

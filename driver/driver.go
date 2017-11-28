@@ -5,7 +5,6 @@ import (
 
 	"github.com/vishwanathj/golangexercies/rectangle"
 
-	"../rectangle"
 )
 
 func main() {

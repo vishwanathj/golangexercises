@@ -27,7 +27,7 @@ func TestGetTheRectangleIntersectFunc(t *testing.T) {
 		{Rectangle{Point{4,2}, Point{0,1}}, Rectangle{Point{0,1}, Point{1,2}}, Rectangle{Point{0,0}, Point{0,0}}},
 	}
 	for _, tdr := range testTable {
-		res:=getTheIntersectingRectangle(tdr.r1, tdr.r2)
+		res:=GetTheIntersectingRectangle(tdr.r1, tdr.r2)
 		if (res != tdr.output) {
 			t.Errorf("Calculated result %v incorrect, correct result is %v", res, tdr.output)
 		}

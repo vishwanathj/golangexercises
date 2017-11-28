@@ -156,7 +156,7 @@ func calcIntersectingRectangle(r1, r2 Rectangle) (Rectangle) {
 
 }
 
-func getTheIntersectingRectangle(r1, r2 Rectangle) Rectangle {
+func GetTheIntersectingRectangle(r1, r2 Rectangle) Rectangle {
 	/* This method returns {{0,0},{0,0}} if there DOES NOT exist an intersection rectangle between the 2 given rectangles,
 	else, it returns the calculated intersection values, {{x1, y1}, {x2, y2}} where x1 < x2 and y1 < y2.
 	Step 1: Ensure that the rectangles are valid.

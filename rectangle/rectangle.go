@@ -10,7 +10,7 @@ type Rectangle struct {
 	TopRightVtx Point
 }
 
-func getTheVertexPosition(v Point, r Rectangle) int {
+func GetTheVertexPosition(v Point, r Rectangle) int {
 	/* This method returns a value of
 	--> 1 to indicates that the given vertex, 'v' is enclosed within the rectangle 'r'
 	--> 0 to indicate that the given vertex, 'v' lies on one of the edges of the rectangle, 'r'
@@ -26,7 +26,7 @@ func getTheVertexPosition(v Point, r Rectangle) int {
 	return -1
 }
 
-func isTheRectangleValid(r Rectangle) bool {
+func IsTheRectangleValid(r Rectangle) bool {
 	/* This method ensures that the vertices that define the rectangle, 'r' are the top right vertex and
 	bottom left vertex. Providing other vertices, such as  top left vertex and bottom right vertex for
 	the rectangle definition are not accepted.
@@ -37,7 +37,7 @@ func isTheRectangleValid(r Rectangle) bool {
 	return false
 }
 
-func calcIntersectingRectangle(r1, r2 Rectangle) (Rectangle) {
+func CalcIntersectingRectangle(r1, r2 Rectangle) (Rectangle) {
 	/* This method calculates if there is an intersection/overlap of r2 with r1.
 	The method returns a Rectangle struct defined by the bottomLeftVertex and topRightVertex if there
 	exists an intersection or overlap between the rectangles.
@@ -57,10 +57,10 @@ func calcIntersectingRectangle(r1, r2 Rectangle) (Rectangle) {
 
 	//figure out how many vertices of second rectangle lie inside, on the edge or outside the first rectangle.
 	var r2VtxPosition  = [4]int{-1,-1,-1,-1}
-	r2VtxPosition[0] = getTheVertexPosition(r2.BotLeftVtx, r1)
-	r2VtxPosition[1] = getTheVertexPosition(Point{r2.BotLeftVtx.X, r2.TopRightVtx.Y}, r1)
-	r2VtxPosition[2] = getTheVertexPosition(r2.TopRightVtx, r1)
-	r2VtxPosition[3] = getTheVertexPosition(Point{r2.TopRightVtx.X, r2.BotLeftVtx.Y}, r1)
+	r2VtxPosition[0] = GetTheVertexPosition(r2.BotLeftVtx, r1)
+	r2VtxPosition[1] = GetTheVertexPosition(Point{r2.BotLeftVtx.X, r2.TopRightVtx.Y}, r1)
+	r2VtxPosition[2] = GetTheVertexPosition(r2.TopRightVtx, r1)
+	r2VtxPosition[3] = GetTheVertexPosition(Point{r2.TopRightVtx.X, r2.BotLeftVtx.Y}, r1)
 
 	var verticesOnEdge = 0
 	var verticesInsideRect = 0
@@ -147,7 +147,7 @@ func calcIntersectingRectangle(r1, r2 Rectangle) (Rectangle) {
 		}
 
 		calculatedRectangle:=Rectangle{botLeftVtxIntersect, topRightVtxIntersect}
-		if(isTheRectangleValid(calculatedRectangle)){
+		if(IsTheRectangleValid(calculatedRectangle)){
 			return calculatedRectangle
 		}
 	}
@@ -165,16 +165,16 @@ func GetTheIntersectingRectangle(r1, r2 Rectangle) Rectangle {
 	*/
 	nonIntersectRect:=Rectangle{Point{0,0},Point{0,0}}
 
-	if (! isTheRectangleValid(r1) || ! isTheRectangleValid(r2)) {
+	if (! IsTheRectangleValid(r1) || ! IsTheRectangleValid(r2)) {
 		return nonIntersectRect
 	}
 
-	intersectRect := calcIntersectingRectangle(r1, r2)
+	intersectRect := CalcIntersectingRectangle(r1, r2)
 	if (intersectRect != nonIntersectRect) {
 		return intersectRect
 	}
 
 	/* Note that in the below call r2 is being passed as the first parameter*/
-	return calcIntersectingRectangle(r2,r1)
+	return CalcIntersectingRectangle(r2,r1)
 }
 

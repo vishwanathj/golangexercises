@@ -1,33 +1,37 @@
-package rectangle
+package rectangle_test
 
-import "testing"
+import (
+	"testing"
+	
+	"github.com/vishwanathj/golangexercises/rectangle"
+)
 
 func TestGetTheRectangleIntersectFunc(t *testing.T) {
 	/* Note: This would ALSO test invalid rectangles as part of its test data*/
 	testTable := [] struct {
-		r1 Rectangle
-		r2 Rectangle
-		output Rectangle
+		r1 rectangle.Rectangle
+		r2 rectangle.Rectangle
+		output rectangle.Rectangle
 	} {
-		{Rectangle{Point{0,0}, Point{1,1,}}, Rectangle{Point{2,2}, Point{3,3}}, Rectangle{Point{0,0}, Point{0,0}}},
-		{Rectangle{Point{0,0}, Point{1,1}}, Rectangle{Point{0,0}, Point{1,1}}, Rectangle{Point{0,0}, Point{1,1}}},
-		{Rectangle{Point{1,1}, Point{2,2}}, Rectangle{Point{0,0}, Point{3,3}}, Rectangle{Point{1,1}, Point{2,2}}},
-		{Rectangle{Point{1,-1}, Point{3,3}}, Rectangle{Point{0,0}, Point{2,2}}, Rectangle{Point{1,0}, Point{2,2}}},
-		{Rectangle{Point{0,0}, Point{2,2}}, Rectangle{Point{1,1}, Point{3,3}}, Rectangle{Point{1,1}, Point{2,2}}},
-		{Rectangle{Point{0,0}, Point{3,3}}, Rectangle{Point{0,1}, Point{1,2}}, Rectangle{Point{0,1}, Point{1,2}}},
-		{Rectangle{Point{0,0}, Point{3,3}}, Rectangle{Point{0,1}, Point{4,2}}, Rectangle{Point{0,1}, Point{3,2}}},
-		{Rectangle{Point{0,0}, Point{3,3}}, Rectangle{Point{-1,1}, Point{0,2}}, Rectangle{Point{0,0}, Point{0,0}}},
-		{Rectangle{Point{0,0}, Point{2,2}}, Rectangle{Point{0,1}, Point{1,2}}, Rectangle{Point{0,1}, Point{1,2}}},
-		{Rectangle{Point{0,0}, Point{2,2}}, Rectangle{Point{0,-1}, Point{1,2}}, Rectangle{Point{0,0}, Point{1,2}}},
-		{Rectangle{Point{0,0}, Point{1,1}}, Rectangle{Point{1,0}, Point{2,1}}, Rectangle{Point{0,0}, Point{0,0}}},
-		{Rectangle{Point{0,0}, Point{1,1}}, Rectangle{Point{0,1}, Point{1,2}}, Rectangle{Point{0,0}, Point{0,0}}},
-		{Rectangle{Point{0,0}, Point{1,1}}, Rectangle{Point{1,1}, Point{2,2}}, Rectangle{Point{0,0}, Point{0,0}}},
-		{Rectangle{Point{0,0}, Point{3,3}}, Rectangle{Point{1,-1}, Point{2,3}}, Rectangle{Point{1,0}, Point{2,3}}},
-		{Rectangle{Point{0,1}, Point{4,2}}, Rectangle{Point{1,0}, Point{4,3}}, Rectangle{Point{1,1}, Point{4,2}}},
-		{Rectangle{Point{4,2}, Point{0,1}}, Rectangle{Point{0,1}, Point{1,2}}, Rectangle{Point{0,0}, Point{0,0}}},
+		{rectangle.Rectangle{rectangle.Point{0,0}, rectangle.Point{1,1,}}, rectangle.Rectangle{rectangle.Point{2,2}, rectangle.Point{3,3}}, rectangle.Rectangle{rectangle.Point{0,0}, rectangle.Point{0,0}}},
+		{rectangle.Rectangle{rectangle.Point{0,0}, rectangle.Point{1,1}}, rectangle.Rectangle{rectangle.Point{0,0}, rectangle.Point{1,1}}, rectangle.Rectangle{rectangle.Point{0,0}, rectangle.Point{1,1}}},
+		{rectangle.Rectangle{rectangle.Point{1,1}, rectangle.Point{2,2}}, rectangle.Rectangle{rectangle.Point{0,0}, rectangle.Point{3,3}}, rectangle.Rectangle{rectangle.Point{1,1}, rectangle.Point{2,2}}},
+		{rectangle.Rectangle{rectangle.Point{1,-1}, rectangle.Point{3,3}}, rectangle.Rectangle{rectangle.Point{0,0}, rectangle.Point{2,2}}, rectangle.Rectangle{rectangle.Point{1,0}, rectangle.Point{2,2}}},
+		{rectangle.Rectangle{rectangle.Point{0,0}, rectangle.Point{2,2}}, rectangle.Rectangle{rectangle.Point{1,1}, rectangle.Point{3,3}}, rectangle.Rectangle{rectangle.Point{1,1}, rectangle.Point{2,2}}},
+		{rectangle.Rectangle{rectangle.Point{0,0}, rectangle.Point{3,3}}, rectangle.Rectangle{rectangle.Point{0,1}, rectangle.Point{1,2}}, rectangle.Rectangle{rectangle.Point{0,1}, rectangle.Point{1,2}}},
+		{rectangle.Rectangle{rectangle.Point{0,0}, rectangle.Point{3,3}}, rectangle.Rectangle{rectangle.Point{0,1}, rectangle.Point{4,2}}, rectangle.Rectangle{rectangle.Point{0,1}, rectangle.Point{3,2}}},
+		{rectangle.Rectangle{rectangle.Point{0,0}, rectangle.Point{3,3}}, rectangle.Rectangle{rectangle.Point{-1,1}, rectangle.Point{0,2}}, rectangle.Rectangle{rectangle.Point{0,0}, rectangle.Point{0,0}}},
+		{rectangle.Rectangle{rectangle.Point{0,0}, rectangle.Point{2,2}}, rectangle.Rectangle{rectangle.Point{0,1}, rectangle.Point{1,2}}, rectangle.Rectangle{rectangle.Point{0,1}, rectangle.Point{1,2}}},
+		{rectangle.Rectangle{rectangle.Point{0,0}, rectangle.Point{2,2}}, rectangle.Rectangle{rectangle.Point{0,-1}, rectangle.Point{1,2}}, rectangle.Rectangle{rectangle.Point{0,0}, rectangle.Point{1,2}}},
+		{rectangle.Rectangle{rectangle.Point{0,0}, rectangle.Point{1,1}}, rectangle.Rectangle{rectangle.Point{1,0}, rectangle.Point{2,1}}, rectangle.Rectangle{rectangle.Point{0,0}, rectangle.Point{0,0}}},
+		{rectangle.Rectangle{rectangle.Point{0,0}, rectangle.Point{1,1}}, rectangle.Rectangle{rectangle.Point{0,1}, rectangle.Point{1,2}}, rectangle.Rectangle{rectangle.Point{0,0}, rectangle.Point{0,0}}},
+		{rectangle.Rectangle{rectangle.Point{0,0}, rectangle.Point{1,1}}, rectangle.Rectangle{rectangle.Point{1,1}, rectangle.Point{2,2}}, rectangle.Rectangle{rectangle.Point{0,0}, rectangle.Point{0,0}}},
+		{rectangle.Rectangle{rectangle.Point{0,0}, rectangle.Point{3,3}}, rectangle.Rectangle{rectangle.Point{1,-1}, rectangle.Point{2,3}}, rectangle.Rectangle{rectangle.Point{1,0}, rectangle.Point{2,3}}},
+		{rectangle.Rectangle{rectangle.Point{0,1}, rectangle.Point{4,2}}, rectangle.Rectangle{rectangle.Point{1,0}, rectangle.Point{4,3}}, rectangle.Rectangle{rectangle.Point{1,1}, rectangle.Point{4,2}}},
+		{rectangle.Rectangle{rectangle.Point{4,2}, rectangle.Point{0,1}}, rectangle.Rectangle{rectangle.Point{0,1}, rectangle.Point{1,2}}, rectangle.Rectangle{rectangle.Point{0,0}, rectangle.Point{0,0}}},
 	}
 	for _, tdr := range testTable {
-		res:=GetTheIntersectingRectangle(tdr.r1, tdr.r2)
+		res:=rectangle.GetTheIntersectingRectangle(tdr.r1, tdr.r2)
 		if (res != tdr.output) {
 			t.Errorf("Calculated result %v incorrect, correct result is %v", res, tdr.output)
 		}
@@ -37,18 +41,18 @@ func TestGetTheRectangleIntersectFunc(t *testing.T) {
 
 func TestIsTheRectangleValidFunc(t *testing.T) {
 	testTable := [] struct {
-		input Rectangle
+		input rectangle.Rectangle
 		output bool
 	} {
-		{ Rectangle{Point{0,0}, Point{1,1}}, true},
-		{Rectangle{Point{1,1}, Point{0,0}}, false},
-		{Rectangle{Point{0,1}, Point{1,0}}, false},
-		{Rectangle{Point{1,0}, Point{0,1}}, false},
-		{Rectangle{Point{0,0}, Point{1,0}}, false},
-		{Rectangle{Point{0,0}, Point{0,1}}, false},
+		{ rectangle.Rectangle{rectangle.Point{0,0}, rectangle.Point{1,1}}, true},
+		{rectangle.Rectangle{rectangle.Point{1,1}, rectangle.Point{0,0}}, false},
+		{rectangle.Rectangle{rectangle.Point{0,1}, rectangle.Point{1,0}}, false},
+		{rectangle.Rectangle{rectangle.Point{1,0}, rectangle.Point{0,1}}, false},
+		{rectangle.Rectangle{rectangle.Point{0,0}, rectangle.Point{1,0}}, false},
+		{rectangle.Rectangle{rectangle.Point{0,0}, rectangle.Point{0,1}}, false},
 	}
 	for _, tdr := range testTable {
-		res:=isTheRectangleValid(tdr.input)
+		res:=rectangle.IsTheRectangleValid(tdr.input)
 		if (res != tdr.output) {
 			t.Errorf("Calculated result %t incorrect, correct result is %t", res, tdr.output )
 		}
@@ -57,16 +61,16 @@ func TestIsTheRectangleValidFunc(t *testing.T) {
 
 func TestGetTheVertexPositionFunc(t *testing.T) {
 	testTable := [] struct {
-		v Point
-		r Rectangle
+		v rectangle.Point
+		r rectangle.Rectangle
 		output int
 	} {
-		{Point{2,2}, Rectangle{Point{0,0}, Point{3,3}}, 1},
-		{Point{-1,-1}, Rectangle{Point{0,0}, Point{3,3}}, -1},
-		{Point{0,3}, Rectangle{Point{0,0}, Point{3,3}}, 0},
+		{rectangle.Point{2,2}, rectangle.Rectangle{rectangle.Point{0,0}, rectangle.Point{3,3}}, 1},
+		{rectangle.Point{-1,-1}, rectangle.Rectangle{rectangle.Point{0,0}, rectangle.Point{3,3}}, -1},
+		{rectangle.Point{0,3}, rectangle.Rectangle{rectangle.Point{0,0}, rectangle.Point{3,3}}, 0},
 	}
 	for _, tdr := range testTable {
-		res:=getTheVertexPosition(tdr.v, tdr.r)
+		res:=rectangle.GetTheVertexPosition(tdr.v, tdr.r)
 		if (res != tdr.output) {
 			t.Errorf("Calculated result %d incorrect, correct result is %d", res, tdr.output )
 		}
@@ -78,20 +82,20 @@ func TestCalculateIntersectingRectangleFunc(t *testing.T) {
 	there are cases where passing r2 as first parameter and r1 as second parameter may give different result as
 	compared to when passing r1 as first parameter and r2 as second parameter.*/
 	testTable := [] struct {
-		r1 Rectangle
-		r2 Rectangle
-		output Rectangle
+		r1 rectangle.Rectangle
+		r2 rectangle.Rectangle
+		output rectangle.Rectangle
 	} {
-		{Rectangle{Point{0,0}, Point{1,1,}}, Rectangle{Point{2,2}, Point{3,3}}, Rectangle{Point{0,0}, Point{0,0}}},
-		{Rectangle{Point{0,0}, Point{3,3}}, Rectangle{Point{1,1}, Point{2,2}}, Rectangle{Point{1,1}, Point{2,2}}},
-		{Rectangle{Point{1,1}, Point{2,2}}, Rectangle{Point{0,0}, Point{3,3}}, Rectangle{Point{0,0}, Point{0,0}}},
-		{Rectangle{Point{0,0}, Point{2,2}}, Rectangle{Point{1,-1}, Point{3,3}}, Rectangle{Point{0,0}, Point{0,0}}},
-		{Rectangle{Point{1,-1}, Point{3,3}}, Rectangle{Point{0,0}, Point{2,2}}, Rectangle{Point{1,0}, Point{2,2}}},
-		{Rectangle{Point{0,1}, Point{1,2}}, Rectangle{Point{0,0}, Point{2,2}}, Rectangle{Point{0,0}, Point{0,0}}},
-		{Rectangle{Point{0,0}, Point{2,2}}, Rectangle{Point{0,1}, Point{1,2}}, Rectangle{Point{0,1}, Point{1,2}}},
+		{rectangle.Rectangle{rectangle.Point{0,0}, rectangle.Point{1,1,}}, rectangle.Rectangle{rectangle.Point{2,2}, rectangle.Point{3,3}}, rectangle.Rectangle{rectangle.Point{0,0}, rectangle.Point{0,0}}},
+		{rectangle.Rectangle{rectangle.Point{0,0}, rectangle.Point{3,3}}, rectangle.Rectangle{rectangle.Point{1,1}, rectangle.Point{2,2}}, rectangle.Rectangle{rectangle.Point{1,1}, rectangle.Point{2,2}}},
+		{rectangle.Rectangle{rectangle.Point{1,1}, rectangle.Point{2,2}}, rectangle.Rectangle{rectangle.Point{0,0}, rectangle.Point{3,3}}, rectangle.Rectangle{rectangle.Point{0,0}, rectangle.Point{0,0}}},
+		{rectangle.Rectangle{rectangle.Point{0,0}, rectangle.Point{2,2}}, rectangle.Rectangle{rectangle.Point{1,-1}, rectangle.Point{3,3}}, rectangle.Rectangle{rectangle.Point{0,0}, rectangle.Point{0,0}}},
+		{rectangle.Rectangle{rectangle.Point{1,-1}, rectangle.Point{3,3}}, rectangle.Rectangle{rectangle.Point{0,0}, rectangle.Point{2,2}}, rectangle.Rectangle{rectangle.Point{1,0}, rectangle.Point{2,2}}},
+		{rectangle.Rectangle{rectangle.Point{0,1}, rectangle.Point{1,2}}, rectangle.Rectangle{rectangle.Point{0,0}, rectangle.Point{2,2}}, rectangle.Rectangle{rectangle.Point{0,0}, rectangle.Point{0,0}}},
+		{rectangle.Rectangle{rectangle.Point{0,0}, rectangle.Point{2,2}}, rectangle.Rectangle{rectangle.Point{0,1}, rectangle.Point{1,2}}, rectangle.Rectangle{rectangle.Point{0,1}, rectangle.Point{1,2}}},
 	}
 	for _, tdr := range testTable {
-		res:=calcIntersectingRectangle(tdr.r1, tdr.r2)
+		res:=rectangle.CalcIntersectingRectangle(tdr.r1, tdr.r2)
 		if (res != tdr.output) {
 			t.Errorf("Calculated result %v incorrect, correct result is %v", res, tdr.output)
 		}
